@@ -16,6 +16,13 @@ Rather than providing another step-by-step installation guide, this documentatio
 - **System Monitoring Script:** Develop a monitoring.sh bash script to provide regular system information updates on all terminals at predefined intervals.
 - **WordPress Website Setup :** Host a WordPress website using lighttpd, MariaDB, and PHP.
 
+## Guides Used
+I used these guides, with certain limitations as pointed out the following sections:
+
+- [Born2BeRoot Guide](https://github.com/pasqualerossi/Born2BeRoot-Guide/tree/main) by Pasquale Rossi.
+- [born2beroot-42network-cursus](https://github.com/ucefooo/born2beroot) by Youssef Oussama.
+- For explaining concepts: [born2beroot](https://github.com/pgomez-a/born2beroot) by Pablo Gómez Álvarez.
+  
 ## Installing Debian OS
 - Download the latest version of Debian [here](https://www.debian.org/).
 - To install Debian with the specified partitions as mentioned in the bonus section, I followed [this video guide](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=349s) by [Youssef Oussama](https://github.com/ucefooo).   
@@ -23,3 +30,4 @@ Rather than providing another step-by-step installation guide, this documentatio
     - ⚠️ Note how the volume "var--log" (as listed with `lstblk`) is named "var-log" during setup (see 7:50 timestamp in the [video guide](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=349s)).
 ![Screenshot from 2023-12-15 15-11-14 (1)](https://github.com/alx-sch/42_born2beroot/assets/134595144/514f57a8-92c4-40c3-8077-2aac9e5db8d9)
 
+## Password Policy
