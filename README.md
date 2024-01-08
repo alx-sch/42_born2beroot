@@ -42,7 +42,7 @@ I used these guides, with certain limitations as pointed out the following secti
 ## Monitoring Script
 - As with everything you find online: Take it with a grain of salt and make sure to understand and test before implementing it into your own project. I've encountered a few monitoring scripts that were not 100% correct (e.g., counting the header line of a table showing TCP connections, therefore always being "1" too much).
 - Here is my monitoring script; please do not copy and paste it before testing it yourself! ;)
-```
+```bash
 #!/bin/bash
 
 # ARCH
@@ -108,6 +108,29 @@ echo "$message" | wall`
 
 - Many guides set up the cron job to execute the monitoring script like this (`sudo crontab -u root -e`):
   ```bash
-  */10 * * * * sh /path/to/script
+  */10 * * * * sh /path/to/monitor_script.sh
+  ```
 - ⚠️ While this setup does execute the script every 10 minutes, it does so every "full 10 minutes" on the clock (e.g., 12:00, 12:10, 12:20, ...). The project's subject, however, specifies that the monitoring information is to be shown at server startup and then every 10 minutes. This means that if the server is started at 12:34:56 (HH:MM:SS), the monitoring info is expected to be displayed right away and then at 12:44:56, 12:54:56, 01:04:56, and so on.
+
+  To align with the project requirements, consider the following crontab setting:
+  ```bash
+  @reboot sleep 30 && /path/to/monitor_script.sh
+  */10 * * * * /path/to/sleep_script.sh && /path/to/monitor_script.sh
+  ```
+    - `@reboot sleep 30` ensures a 30-second delay to allow the user to access the encrypted partition and log in before executing the monitoring script. This delay is necessary as system information would not be displayed while the user is still accessing. 
+    - `sleep_script.sh` introduces a delay in the execution of the monitoring script, ensuring that system information is displayed 10 minutes after server startup. By employing a separate script, you can conveniently adjust the scheduling of system information messages without modifying the monitoring script itself:  
+      ```bash
+      #!/bin/bash
+
+        # boot time(hh:min); 12:34:56
+        boot_time=$(last -FR | grep reboot | head -n 1 | awk '{print $7}')
+
+        # boot time, min single digit; 12:34:56 -> 4
+        single_digit_minute=$(echo "$boot_time" | awk '{printf substr($1,5,1)}')
+
+        # boot time, sec; 12:34:56 -> 56
+        seconds=$(echo "$boot_time" |  awk '{printf substr($1,7,2)}')
+
+        sleep $(($single_digit_minute*60 + $seconds))
+      ```
 
