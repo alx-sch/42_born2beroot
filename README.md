@@ -17,7 +17,7 @@ Rather than providing another step-by-step installation guide, this documentatio
 - **WordPress Website Setup :** Host a WordPress website using lighttpd, MariaDB, and PHP.
 
 ## Guides Used
-I used these guides, with certain limitations as pointed out the following sections:
+I used the following guides, acknowledging certain limitations as highlighted in the sections below:
 
 - [Born2BeRoot Guide](https://github.com/pasqualerossi/Born2BeRoot-Guide/tree/main) by Pasquale Rossi.
 - [born2beroot-42network-cursus](https://github.com/ucefooo/born2beroot) by Youssef Oussama.
