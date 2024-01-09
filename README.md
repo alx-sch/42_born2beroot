@@ -154,7 +154,7 @@ echo "$message" | wall`
     - Purpose: Checks if Logical Volume Management (LVM) is in use.
     - Explanation: Uses **`lsblk`** to check if any block devices mention "lvm." If the count is zero, it echoes "no"; otherwise, it echoes "yes".
 
-- `**tcpc=$(ss -neopt state established | grep -v "Recv-Q" | wc -l)**`
+- **`tcpc=$(ss -neopt state established | grep -v "Recv-Q" | wc -l)`**
     - Purpose: Counts established TCP connections.
     - Explanation: Uses **`ss`** to list established TCP connections and counts the lines. **`grep -v "Recv-Q"`** excludes the header line
 
