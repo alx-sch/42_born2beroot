@@ -37,7 +37,7 @@ I used the following guides, acknowledging certain limitations as highlighted in
 - ⚠️ After editing the password aging settings in `/etc/login.defs`, make sure to manually apply corresponding policies to existing users using commands like `chage -m 2 -M 30 -W 7 root` or `chage -m 2 -M 30 -W 7 username`. Check password aging settings via `sudo chage -l username`.
 
 ## Editing Sudoers
-- Use `sudo visudo` instead of, for example, `sudo nano /etc/sudoer`, to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
+- Use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`), to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
 
 ## Monitoring Script
 - As with everything you find online: Take it with a grain of salt and make sure to understand and test before implementing it into your own project. I've encountered a few monitoring scripts that were not 100% correct (e.g., counting the header line of a table showing TCP connections, therefore always being "1" too much).
