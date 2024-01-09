@@ -190,7 +190,8 @@ echo "$message" | wall`
   */10 * * * * /path/to/sleep_script.sh && /path/to/monitor_script.sh
   ```
     - `@reboot sleep 30` ensures a 30-second delay to allow the user to access the encrypted partition and log in before executing the monitoring script. This delay is necessary as system information would not be displayed while the user is still accessing. 
-    - `sleep_script.sh` introduces a delay in the execution of the monitoring script, ensuring that system information is displayed 10 minutes after server startup. By employing a separate script, you can conveniently adjust the scheduling of system information messages without modifying the monitoring script itself:  
+    - `sleep_script.sh` introduces a delay in the execution of the monitoring script, ensuring that system information is displayed 10 minutes after server startup. By employing a separate script, you can conveniently adjust the scheduling of system information messages without modifying the monitoring script itself:   
+      
       ```bash
       #!/bin/bash
 
@@ -205,4 +206,18 @@ echo "$message" | wall`
 
         sleep $(($single_digit_minute*60 + $seconds))
       ```
-
+    - **`boot_time=$(last -FR | grep reboot | head -n 1 | awk '{print $7}')`**
+        - Purpose: Retrieves the timestamp of the last system reboot.
+        - Explanation: Uses the 'last' command to show the system's reboot history. Filters lines containing "reboot", takes the first line using **`head -n 1`**, and extracts the seventh column (timestamp) using awk.
+     
+   - **`single_digit_minute=$(echo "$boot_time" | awk '{printf substr($1,5,1)}')`**
+        - Purpose: Extracts the single-digit minute from the boot timestamp.
+        - Explanation: Takes the value stored in **`boot_time`** and uses awk to extract a substring starting from the 5th character with a length of 1 (the single-digit minute).
+    
+    - **`seconds=$(echo "$boot_time" | awk '{printf substr($1,7,2)}')`**
+        - Purpose: Extracts the seconds from the boot timestamp.
+        - Explanation: Similar to the previous line, it uses awk to extract a substring starting from the 7th character with a length of 2 (the seconds).
+     
+    - **`sleep $(($single_digit_minute*60 + $seconds))`**
+        - Purpose: Sleeps for a duration based on the single-digit minute and seconds extracted from the boot timestamp.
+        - Explanation: Calculates the sleep duration in seconds, ultimately affecting the monitoring script to be executed 'every full 10 minutes on the clock' plus the sleep duration (resulting in execution every 10 minutes after server startup)."
