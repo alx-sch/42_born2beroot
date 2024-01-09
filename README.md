@@ -4,9 +4,9 @@
     <img src="https://github.com/alx-sch/42_born2beroot/assets/134595144/5b265781-5233-4e48-97df-7bead21d3054" alt="libft" />
 </p>
 
-Configuring a secure virtual machine involves user authentication, firewall rules, and system monitoring, with a focus on Linux system administration and network security. This project serves as a practical exercise in system administration.
+This project serves as a practical exercise in system administration: A secure virtual machine is configured, involving user authentication, firewall rules, and system monitoring, with a focus on Linux system administration and network securit
 
-Rather than providing another step-by-step installation guide, this documentation highlights certain challenges I noticed during evaluations, which are often overlooked by many online guides for the born2beroot project.
+Rather than providing another step-by-step installation guide, this documentation highlights certain challenges I noticed during evaluations, which are overlooked by many online guides for 42's born2beroot project.
 
 ## Features
 
