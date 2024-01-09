@@ -6,7 +6,7 @@
 
 This project serves as a practical exercise in system administration: A secure virtual machine is configured, involving user authentication, firewall rules, and system monitoring, with a focus on Linux system administration and network securit
 
-Rather than providing another step-by-step installation guide, this documentation highlights certain challenges I noticed during evaluations, which are overlooked by many online guides for 42's born2beroot project.
+Rather than providing another step-by-step installation guide, this documentation highlights certain challenges I noticed during evaluations, which are also overlooked by many online guides for this project.
 
 ## Features
 
