@@ -104,6 +104,78 @@ message="
 # Send the message to all logged-in users
 echo "$message" | wall`
 ```
+- **`arc=$(uname -a)`**
+    - Purpose: Retrieves system architecture information.
+    - Explanation: The **`uname -a`** command prints system information, including the system architecture (e.g., x86_64), kernel version, and other details.
+
+- **`cpu_p=$(grep "physical id" /proc/cpuinfo | sort | uniq | wc -l)`**
+    - Purpose: Counts the number of physical CPUs.
+    - Explanation: This line uses a series of commands to extract unique physical CPU IDs from **`/proc/cpuinfo`**, sorts them, and counts the unique IDs using **`wc -l`** (number of output lines).
+
+- **`cpu_v=$(grep "^processor" /proc/cpuinfo | wc -l)`**
+    - Purpose: Counts the number of virtual CPUs.
+    - Explanation: This line counts the number of lines starting with "processor" in **`/proc/cpuinfo`**, representing virtual CPUs.
+
+- **`ram_total=$(free -m | awk '$1 == "Mem:" {print $2}')`**
+    - Purpose: Retrieves total RAM in megabytes.
+    - Explanation: Uses the **`free -m`** command to display memory information in megabytes, then uses **`awk`** to extract the total RAM (in MB) from the line starting with "Mem:".
+
+- **`ram_use=$(free -m | awk '$1 == "Mem:" {print $3}')`**
+    - Purpose: Retrieves used RAM in megabytes.
+    - Explanation: Similar to the previous line, extracts the used RAM (in MB) from the "Mem:" line using **`awk`**.
+
+- **`ram_perc=$(free | awk '$1 == "Mem:" {printf("%.2f"), $3/$2*100}')`**
+    - Purpose: Calculates the percentage of used RAM.
+    - Explanation: Uses **`awk`** to calculate the percentage of used RAM and formats the result to two decimal places. It divides used memory (**`$3`**) by total memory (**`$2`**) and multiplies by 100.
+
+- **`disk_total=$(df -BG | grep '^/dev/' | grep -v '/boot$' | awk '{ft += $2} END {print ft}')`**
+    - Purpose: Calculates total disk space in gigabytes.
+    - Explanation: Uses **`df -BG`** to display disk space information in gigabytes, filters lines starting with '/dev/' excluding '/boot', and calculates the total disk space by summing up the second field (**`$2`**).
+
+- **`disk_use=$(df -BM | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} END {print ut}')`**
+    - Purpose: Calculates used disk space in megabytes.
+    - Explanation: Similar to the previous line, calculates the total used disk space by summing up the third field (**`$3`**).
+
+- **`disk_perc=$(df -BM | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} {ft+= $2} END {printf("%d"), ut/ft*100}')`**
+    - Purpose: Calculates the percentage of used disk space.
+    - Explanation: Calculates the percentage of used disk space by dividing used disk space (**`ut`**) by total disk space (**`ft`**), multiplying by 100, and formatting the result as an integer. 
+
+- **`cpu_l=$(top -bn1 | grep '^%Cpu' | cut -c 9- | xargs | awk '{printf("%.1f%%"), $1 + $3}')`**
+    - Purpose: Retrieves CPU load percentage.
+    - b: batch (snapshot) → not interactive / real-time updates
+    - n1: runs for a single iteration and then stops
+    - Explanation: Uses **`top`** to get CPU usage information, extracts the CPU load percentage, and formats the result to one decimal place.
+ 
+- **`lb=$(who -b | awk '$1 == "system" {print $3 " " $4}')`**
+    - Purpose: Retrieves the last system boot time.
+    - Explanation: Uses **`who -b`** to get information about the last system boot and extracts the date and time.
+ 
+- **`lvmu=$(if [ $(lsblk | grep "lvm" | wc -l) -eq 0 ]; then echo no; else echo yes; fi)`**
+    - Purpose: Checks if Logical Volume Management (LVM) is in use.
+    - Explanation: Uses **`lsblk`** to check if any block devices mention "lvm." If the count is zero, it echoes "no"; otherwise, it echoes "yes".
+
+- `**tcpc=$(ss -neopt state established | grep -v "Recv-Q" | wc -l)**`
+    - Purpose: Counts established TCP connections.
+    - Explanation: Uses **`ss`** to list established TCP connections and counts the lines. **`grep -v "Recv-Q"`** excludes the header line
+
+- **`ulog=$(users | wc -w)`**
+    - Purpose: Counts the number of logged-in users.
+    - Explanation: Uses **`users`** to list logged-in users and **`wc -w`** to count the number of words (users).
+
+- **`ip=$(hostname -I)`**
+    - Purpose: Retrieves the system's IP address.
+    - Explanation: Uses **`hostname -I`** to obtain the system's IP address.
+
+- **`mac=$(ip link show | grep "ether" | awk '{print $2}')`**
+    - Purpose: Retrieves the MAC address of the network interface.
+    - Explanation: Uses **`ip link show`** to list network interfaces, filters lines containing "ether" (MAC address), and extracts the MAC address.
+ 
+- **`cmds=$(journalctl _COMM=sudo | grep COMMAND | wc -l)`**
+    - Purpose: Counts the number of sudo commands executed.
+    - Explanation: Uses **`journalctl`** to query the system's journal for sudo commands, filters lines with "_COMM=sudo" and "COMMAND," and counts the lines.
+ 
+- The **`wall`** command in Linux is used to send a message to all users currently logged into the system. When you pipe a message into **`wall`** using the **`echo`** command, it broadcasts that message to all open terminal sessions.
+      
 ## Setting up a Cron Job
 
 - Many guides set up the cron job to execute the monitoring script like this (`sudo crontab -u root -e`):
