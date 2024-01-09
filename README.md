@@ -172,7 +172,7 @@ echo "$message" | wall`
  
 - **`cmds=$(journalctl _COMM=sudo | grep COMMAND | wc -l)`**
     - Purpose: Counts the number of sudo commands executed.
-    - Explanation: Uses **`journalctl`** to query the system's journal for sudo commands, filters lines with "_COMM=sudo" and "COMMAND," and counts the lines.
+    - Explanation: Uses **`journalctl`** to query the system's journal for sudo commands, filters lines with "_COMM=sudo" and "COMMAND", and counts the lines.
  
 - The **`wall`** command in Linux is used to send a message to all users currently logged into the system. When you pipe a message into **`wall`** using the **`echo`** command, it broadcasts that message to all open terminal sessions.
       
