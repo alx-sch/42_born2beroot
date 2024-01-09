@@ -144,7 +144,7 @@ echo "$message" | wall`
     - Purpose: Retrieves CPU load percentage.
     - b: batch (snapshot) → not interactive / real-time updates
     - n1: runs for a single iteration and then stops
-    - Explanation: Uses **`top`** to get CPU usage information, extracts the CPU load percentage, and formats the result to one decimal place.
+    - Explanation: Uses **`top`** to get CPU usage information, extracts the CPU load percentage, and formats the result to one decimal place (**`xargs`** takes the output of the previous command and converts it into arguments, turning the multi-column output into a single line of space-separated values).
  
 - **`lb=$(who -b | awk '$1 == "system" {print $3 " " $4}')`**
     - Purpose: Retrieves the last system boot time.
