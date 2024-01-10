@@ -14,7 +14,7 @@ Rather than providing another step-by-step installation guide, this documentatio
 - **User and Group Management:** Manage users and groups through sudoers configuration for controlled access and privileges.
 - **Security Measures:** Implement robust security protocols, covering SSH configuration, root access restriction, UFW setup, and a stringent password policy.
 - **System Monitoring Script:** Develop a monitoring.sh bash script to provide regular system information updates on all terminals at predefined intervals.
-- **WordPress Website Setup :** Host a WordPress website using lighttpd, MariaDB, and PHP.
+- **WordPress Website Setup:** Host a WordPress website using lighttpd, MariaDB, and PHP.
 
 ## Guides Used
 I used the following guides, acknowledging certain limitations as highlighted in the sections below:
@@ -35,6 +35,9 @@ I used the following guides, acknowledging certain limitations as highlighted in
 - I recommended to adhere to the password policy during the OS installation when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
 - ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main), even when changing the password. Ensure that you (also) edit `/etc/security/pwquality.conf` for these changes to take effect.
 - ⚠️ After editing the password aging settings in `/etc/login.defs`, make sure to manually apply corresponding policies to existing users using commands like `chage -m 2 -M 30 -W 7 root` or `chage -m 2 -M 30 -W 7 username`. Check password aging settings via `sudo chage -l username`.
+
+## Port Setup
+- 
 
 ## Editing Sudoers
 - Use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`), to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
@@ -217,6 +220,16 @@ echo "$message" | wall`
     - **`seconds=$(echo "$boot_time" | awk '{printf substr($1,7,2)}')`**
         - Purpose: Extracts the seconds from the boot timestamp.
         - Explanation: Similar to the previous line, it uses awk to extract a substring starting from the 7th character with a length of 2 (the seconds).
+          
+## WordPress Website Setup
+
+- [This](https://github.com/ucefooo/born2beroot) guide explains the setup neatly.
+- You can access your website via your browser at http://localhost:8080, where you will be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you just set up. Please note that that using port 8080 is just convention and a personal choice, as port 8080 is conventionally used for development and testing purposes. By default, Lighttpd is set to listen on port 80, which is the usual port for HTTP (see ## Port Setup to check how managed this).
+
+- You can access your website via your browser at http://localhost:8080, where you will be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you just set up. Please note that using port 8080 is just a convention and a personal choice, as port 8080 is conventionally used for development and testing purposes. By default, Lighttpd is set to listen on port 80, which is the usual port for HTTP (See [Port Setup](#port-setup) to check how this is managed
+## Acknowledgements
+
+
      
     - **`sleep $(($single_digit_minute*60 + $seconds))`**
         - Purpose: Sleeps for a duration based on the single-digit minute and seconds extracted from the boot timestamp.
