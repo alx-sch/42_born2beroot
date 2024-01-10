@@ -37,7 +37,10 @@ I used the following guides, acknowledging certain limitations as highlighted in
 - ⚠️ After editing the password aging settings in `/etc/login.defs`, make sure to manually apply corresponding policies to existing users using commands like `chage -m 2 -M 30 -W 7 root` or `chage -m 2 -M 30 -W 7 username`. Check password aging settings via `sudo chage -l username`.
 
 ## Port Setup
-- 
+- The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server from your machine. To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
+- In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding    
+![Screenshot from 2024-01-10 14-55-06](https://github.com/alx-sch/42_born2beroot/assets/134595144/dce5d851-3eaf-4c68-9558-48f85826e716)
+
 
 ## Editing Sudoers
 - Use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`), to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
@@ -224,13 +227,10 @@ echo "$message" | wall`
 ## WordPress Website Setup
 
 - [This](https://github.com/ucefooo/born2beroot) guide explains the setup neatly.
-- You can access your website via your browser at http://localhost:8080, where you will be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you just set up. Please note that that using port 8080 is just convention and a personal choice, as port 8080 is conventionally used for development and testing purposes. By default, Lighttpd is set to listen on port 80, which is the usual port for HTTP (see ## Port Setup to check how managed this).
-
-- You can access your website via your browser at http://localhost:8080, where you will be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you just set up. Please note that using port 8080 is just a convention and a personal choice, as port 8080 is conventionally used for development and testing purposes. By default, Lighttpd is set to listen on port 80, which is the usual port for HTTP (See [Port Setup](#port-setup) to check how this is managed
+- Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that using port 8080 is just a personal choice, as this port is often employed for development and testing purposes. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
+  
 ## Acknowledgements
 
-
+- I would like to thank the authors mentioned in [Guides Used](#guides-used) for their valuable documentation.
+- The poject badge used is retrieved from this [repo](https://github.com/ayogun/42-project-badges) by Ali Ogun.
      
-    - **`sleep $(($single_digit_minute*60 + $seconds))`**
-        - Purpose: Sleeps for a duration based on the single-digit minute and seconds extracted from the boot timestamp.
-        - Explanation: Calculates the sleep duration in seconds, ultimately affecting the monitoring script to be executed 'every full 10 minutes on the clock' plus the sleep duration (resulting in execution every 10 minutes after server startup)."
