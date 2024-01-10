@@ -232,5 +232,5 @@ echo "$message" | wall`
 ## Acknowledgements
 
 - I would like to thank the authors mentioned in [Guides Used](#guides-used) for their valuable documentation.
-- The poject badge used is retrieved from this [repo](https://github.com/ayogun/42-project-badges) by Ali Ogun.
+- The poject badge used is retrieved from [this repo](https://github.com/ayogun/42-project-badges) by Ali Ogun.
      
