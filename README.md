@@ -227,7 +227,7 @@ echo "$message" | wall`
 ## WordPress Website Setup
 
 - [This](https://github.com/ucefooo/born2beroot) guide explains the setup neatly.
-- Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that using port 8080 is just a personal choice, as this port is often employed for development and testing purposes. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
+- Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that the use of port 8080 is a personal choice, as this port is often employed for development and testing purposes, and port 80 was not available on my network. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
   
 ## Acknowledgements
 
