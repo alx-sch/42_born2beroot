@@ -33,14 +33,13 @@ I used the following guides, acknowledging certain limitations as highlighted in
 ## Password Policy
 
 - I recommended to adhere to the password policy during the OS installation when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
-- ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main), even when changing the password. Ensure that you (also) edit `/etc/security/pwquality.conf` for these changes to take effect.
+- ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main) when changing the password (`passwd username`). Ensure that you (also) edit `/etc/security/pwquality.conf` for these changes to take effect.
 - ⚠️ After editing the password aging settings in `/etc/login.defs`, make sure to manually apply corresponding policies to existing users using commands like `chage -m 2 -M 30 -W 7 root` or `chage -m 2 -M 30 -W 7 username`. Check password aging settings via `sudo chage -l username`.
 
 ## Port Setup
 - The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server from your machine. To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
 - In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding    
 ![Screenshot from 2024-01-10 14-55-06](https://github.com/alx-sch/42_born2beroot/assets/134595144/dce5d851-3eaf-4c68-9558-48f85826e716)
-
 
 ## Editing Sudoers
 - Use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`), to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
