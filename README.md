@@ -190,7 +190,7 @@ echo "$message" | wall`
   ```
 - ⚠️ While this setup does execute the script every 10 minutes, it does so every "full 10 minutes" on the clock (e.g., 12:00, 12:10, 12:20, ...). The project's subject, however, specifies that the monitoring information is to be shown at server startup and then every 10 minutes. This means that if the server is started at 12:34:56 (HH:MM:SS), the monitoring info is expected to be displayed right away and then at 12:44:56, 12:54:56, 01:04:56, and so on.
 
-  To align with the project requirements, consider the crontab setting below (`sudo crontab -u root -e`). While the directory `/usr/local/bin` is commonly designated for locally installed user executables, you are free to place your custom scripts anywhere you prefer.
+  While the directory `/usr/local/bin` is commonly designated for locally installed user executables, you are free to place your custom scripts anywhere you prefer. To align with the project requirements, consider the crontab setting below (`sudo crontab -u root -e`): 
   ```bash
   @reboot sleep 30 && /usr/local/bin/monitor_script.sh
   */10 * * * */usr/local/bin/sleep_script.sh && /usr/local/bin/monitor_script.sh
