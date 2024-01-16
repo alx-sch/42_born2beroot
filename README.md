@@ -40,7 +40,9 @@ I used the following guides, acknowledging certain limitations as highlighted in
 ## Port Setup
 - The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server from your machine. To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
 - In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding    
-![Screenshot from 2024-01-10 14-55-06](https://github.com/alx-sch/42_born2beroot/assets/134595144/dce5d851-3eaf-4c68-9558-48f85826e716)
+![Screenshot from 2024-01-16 14-26-30](https://github.com/alx-sch/42_born2beroot/assets/134595144/f6bd5077-3bf4-4254-93a6-351ed9d686f5)
+
+
 
 ## Editing Sudoers
 - Use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`), to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
