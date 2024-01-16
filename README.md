@@ -230,8 +230,14 @@ echo "$message" | wall`
 - Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that the use of port 8080 is a personal choice, as this port is often employed for development and testing purposes, and port 80 was not available on my network. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
 
 ## Saving the Virtual Machines State
+- Taking a snapshot in VirtualBox allows you to capture the current state of your virtual machine, so you can easily revert back to that state later if needed (e.g. before you set up a tricky configuration or, to make sure to not to alter the signature that you uploaded, before an evaluation):
+    - Make sure that your virtual machine is powered off.
+    - In the VirtualBox Manager, select your virtual machine an switch to the 'Snapshots' tab (via the 'list symbol' next to the virtual machine).
+    - 'Take' a snapshot; you can see that the 'current state' will be set to 'changed' once you start the virtual machine.
+    - To revert back to the snapshot state, choose 'restore'.
+      
+![Screenshot from 2024-01-16 13-23-44](https://github.com/alx-sch/42_born2beroot/assets/134595144/b13203d4-846b-4aa9-8b4c-fc94f0919f5e)
 
-  
 ## Acknowledgements
 
 - I would like to thank the authors mentioned in [Guides Used](#guides-used) for their valuable documentation.
