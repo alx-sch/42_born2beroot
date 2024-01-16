@@ -33,8 +33,9 @@ I used the following guides, acknowledging certain limitations as highlighted in
 ## Password Policy
 
 - I recommended to adhere to the password policy during the OS installation when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
-- ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main) when changing the password (`passwd username`). Ensure that you (also) edit `/etc/security/pwquality.conf` for these changes to take effect.
+- ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main) when changing the password (`passwd username`). Ensure that you edit `/etc/security/pwquality.conf` instead for these changes to take effect.
 - ⚠️ After editing the password aging settings in `/etc/login.defs`, make sure to manually apply corresponding policies to existing users using commands like `chage -m 2 -M 30 -W 7 root` or `chage -m 2 -M 30 -W 7 username`. Check password aging settings via `sudo chage -l username`.
+- Test the correctness of the password policy setup by creating a user and providing a 'bad' password, e.g. by simply pressing 'Enter' when asked for one (`sudo adduser test_user`). Although this user will be created, attempting to log in or switch to the user should prompt for a password that was not set up, rendering the user effectively unusable. Make sure to use the '-r' flag to remove the user along with the user's home directory and its contents: `sudo userdel -r test_user`.
 
 ## Port Setup
 - The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server from your machine. To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
@@ -227,6 +228,9 @@ echo "$message" | wall`
 
 - [This](https://github.com/ucefooo/born2beroot) guide explains the setup neatly.
 - Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that the use of port 8080 is a personal choice, as this port is often employed for development and testing purposes, and port 80 was not available on my network. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
+
+## Saving the Virtual Machines State
+
   
 ## Acknowledgements
 
