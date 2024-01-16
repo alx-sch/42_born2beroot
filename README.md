@@ -229,14 +229,13 @@ echo "$message" | wall`
 - [This](https://github.com/ucefooo/born2beroot) guide explains the setup neatly.
 - Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that the use of port 8080 is a personal choice, as this port is often employed for development and testing purposes, and port 80 was not available on my network. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
 
-## Saving the Virtual Machines State
-- Taking a snapshot in VirtualBox allows you to capture the current state of your virtual machine, so you can easily revert back to that state later if needed (e.g. before you set up a tricky configuration or, to make sure to not to alter the signature that you uploaded, before an evaluation):
-    - Make sure that your virtual machine is powered off.
-    - In the VirtualBox Manager, select your virtual machine an switch to the 'Snapshots' tab (via the 'list symbol' next to the virtual machine).
-    - 'Take' a snapshot; you can see that the 'current state' will be set to 'changed' once you start the virtual machine.
-    - To revert back to the snapshot state, choose 'restore'.
-      
-![Screenshot from 2024-01-16 13-23-44](https://github.com/alx-sch/42_born2beroot/assets/134595144/b13203d4-846b-4aa9-8b4c-fc94f0919f5e)
+## Saving the Virtual Machine State
+- Taking a snapshot in VirtualBox allows you to capture the current state of your virtual machine, making it easy to revert back to that state later. This can be especially useful before making significant changes, ensuring a stable point to return to, which also maintains its hash value. Reverting back after an evaluation ensures that the hash value still aligns with the one you uploaded. Follow these steps to take a snapshot:
+    - Make sure that your virtual machine is powered off before taking a snapshot.
+    - Open the VirtualBox Manager and select your virtual machine. Navigate to the 'Snapshots' tab by clicking the 'list symbol' next to the virtual machine.
+    - Click on the 'Take' button to create a snapshot. You'll notice the 'Current State' is 'changed' once the virtual machine starts.
+    - To revert to the snapshot state, select the desired snapshot and choose 'Restore.'
+     ![Screenshot from 2024-01-16 13-23-44](https://github.com/alx-sch/42_born2beroot/assets/134595144/b13203d4-846b-4aa9-8b4c-fc94f0919f5e)
 
 ## Acknowledgements
 
