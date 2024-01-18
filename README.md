@@ -4,7 +4,7 @@
     <img src="https://github.com/alx-sch/42_born2beroot/assets/134595144/5b265781-5233-4e48-97df-7bead21d3054" alt="libft" />
 </p>
 
-This project serves as a practical exercise in system administration: A secure virtual machine is configured, involving user authentication, firewall rules, and system monitoring, with a focus on Linux system administration and network securit
+This project serves as a practical exercise in system administration: A secure virtual machine is configured, involving user authentication, firewall rules, and system monitoring, with a focus on Linux system administration and network security.
 
 Rather than providing another step-by-step installation guide, this documentation highlights certain challenges I noticed during evaluations, which are also overlooked by many online guides for this project.
 
