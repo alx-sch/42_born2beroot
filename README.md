@@ -27,7 +27,7 @@ I used the following guides, acknowledging certain limitations as highlighted in
 - Download the latest version of Debian [here](https://www.debian.org/).
 - To install Debian with the specified partitions as mentioned in the bonus section, I followed [this video guide](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=349s) by [Youssef Oussama](https://github.com/ucefooo).   
     - ⚠️ Ensure that you install the server on 42's shared storage space "sgoinfre." Be mindful not to exceed the disk space limits specified by your school's policy (the partition sizes presented in the project's subject are examples; a total size of ~8 GB should work just fine).
-    - ⚠️ Note how the volume "var--log" (as listed with `lstblk`) is named "var-log" during setup (see 7:50 timestamp in the [video guide](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=349s)).
+    - ⚠️ Note how the volume "var--log" (as listed with `lstblk`) is named "var-log" during setup (see 7:50 timestamp in the [video guide](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=349s)).  
 ![Screenshot from 2023-12-15 15-11-14 (1)](https://github.com/alx-sch/42_born2beroot/assets/134595144/514f57a8-92c4-40c3-8077-2aac9e5db8d9)
 
 ## Password Policy
@@ -41,8 +41,6 @@ I used the following guides, acknowledging certain limitations as highlighted in
 - The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server from your machine. To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
 - In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding    
 ![Screenshot from 2024-01-16 14-26-30](https://github.com/alx-sch/42_born2beroot/assets/134595144/f6bd5077-3bf4-4254-93a6-351ed9d686f5)
-
-
 
 ## Editing Sudoers
 - Use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`), to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
