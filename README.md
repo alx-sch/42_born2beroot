@@ -183,17 +183,16 @@ echo "$message" | wall`
 - The **`wall`** command in Linux is used to send a message to all users currently logged into the system. When you pipe a message into **`wall`** using the **`echo`** command, it broadcasts that message to all open terminal sessions.
       
 ## Setting up a Cron Job
-
+- While the directory `/usr/local/bin` is commonly designated for locally installed user executables, you are free to place your custom scripts anywhere you prefer. 
 - Many guides set up the cron job to execute the monitoring script like this in the crontab settings (`sudo crontab -u root -e`):
   ```bash
-  */10 * * * * sh /path/to/monitor_script.sh
+  */10 * * * * sh /usr/local/bin/monitor_script.sh
   ```
 - ⚠️ While this setup does execute the script every 10 minutes, it does so every "full 10 minutes" on the clock (e.g., 12:00, 12:10, 12:20, ...). The project's subject, however, specifies that the monitoring information is to be shown at server startup and then every 10 minutes. This means that if the server is started at 12:34:56 (HH:MM:SS), the monitoring info is expected to be displayed right away and then at 12:44:56, 12:54:56, 01:04:56, and so on.
-
-  While the directory `/usr/local/bin` is commonly designated for locally installed user executables, you are free to place your custom scripts anywhere you prefer. To align with the project requirements, consider the crontab setting below (`sudo crontab -u root -e`): 
+- To align with the project requirements, consider the crontab setting below (`sudo crontab -u root -e`): 
   ```bash
   @reboot sleep 30 && /usr/local/bin/monitor_script.sh
-  */10 * * * */usr/local/bin/sleep_script.sh && /usr/local/bin/monitor_script.sh
+  */10 * * * * /usr/local/bin/sleep_script.sh && /usr/local/bin/monitor_script.sh
   ```
     - `@reboot sleep 30` ensures a 30-second delay to allow the user to access the encrypted partition and log in before executing the monitoring script. This delay is necessary as system information would not be displayed while the user is still accessing. 
     - `sleep_script.sh` introduces a delay in the execution of the monitoring script, ensuring that system information is displayed 10 minutes after server startup. By employing a separate script, you can conveniently adjust the scheduling of system information messages without modifying the monitoring script itself:   
