@@ -32,7 +32,7 @@ I used the following guides, acknowledging certain limitations as highlighted in
 
 ## Password Policy
 
-- I recommended to adhere to the password policy during the OS installation when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
+- I recommend adhering to the password policy during the OS installation when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
 - ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main) when changing the password (`passwd username`). Ensure that you edit `/etc/security/pwquality.conf` instead for these changes to take effect.
 - ⚠️ After editing the password aging settings in `/etc/login.defs`, make sure to manually apply corresponding policies to existing users using commands like `chage -m 2 -M 30 -W 7 root` or `chage -m 2 -M 30 -W 7 username`. Check password aging settings via `sudo chage -l username`.
 - Test the correctness of the password policy setup by creating a user and providing a 'bad' password, e.g. by simply pressing 'Enter' when asked for one (`sudo adduser test_user`). Although this user will be created, attempting to log in or switch to the user should prompt for a password that was not set up, rendering the user effectively unusable. Make sure to use the '-r' flag to remove the user along with the user's home directory and its contents: `sudo userdel -r test_user`.
@@ -148,7 +148,7 @@ echo "$message" | wall`
 
 - **`cpu_l=$(top -bn1 | grep '^%Cpu' | cut -c 9- | xargs | awk '{printf("%.1f%%"), $1 + $3}')`**
     - Purpose: Retrieves CPU load percentage.
-    - b: batch (snapshot) → not interactive / real-time updates
+    - b: batch (snapshot) → not dynamic/real-time updates
     - n1: runs for a single iteration and then stops
     - Explanation: Uses **`top`** to get CPU usage information, extracts the CPU load percentage, and formats the result to one decimal place (**`xargs`** takes the output of the previous command and converts it into arguments, turning the multi-column output into a single line of space-separated values).
  
