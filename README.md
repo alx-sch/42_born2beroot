@@ -12,12 +12,12 @@ Rather than providing another step-by-step installation guide, this documentatio
 
 - **Operating System Configuration:** Set up a Debian server with minimal services and create partitions using LVM.
 - **User and Group Management:** Manage users and groups through sudoers configuration for controlled access and privileges.
-- **Security Measures:** Implement robust security protocols, covering SSH configuration, root access restriction, UFW setup, and a stringent password policy.
+- **Security Measures:** Implement robust security protocols, covering SSH configuration, root access restriction, UFW setup, and enforcing a stringent password policy.
 - **System Monitoring Script:** Develop a monitoring.sh bash script to provide regular system information updates on all terminals at predefined intervals.
 - **WordPress Website Setup:** Host a WordPress website using lighttpd, MariaDB, and PHP.
 
 ## Guides Used
-I used the following guides, acknowledging certain limitations as highlighted in the sections below:
+I used the following guides to set up my virtual machine, acknowledging certain limitations as highlighted in the sections below:
 
 - [Born2BeRoot Guide](https://github.com/pasqualerossi/Born2BeRoot-Guide/tree/main) by Pasquale Rossi.
 - [born2beroot-42network-cursus](https://github.com/ucefooo/born2beroot) by Youssef Oussama.
@@ -31,19 +31,24 @@ I used the following guides, acknowledging certain limitations as highlighted in
 ![Screenshot from 2023-12-15 15-11-14 (1)](https://github.com/alx-sch/42_born2beroot/assets/134595144/514f57a8-92c4-40c3-8077-2aac9e5db8d9)
 
 ## Password Policy
-
-- I recommend adhering to the password policy during the OS installation when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
+ **During OS Installation:**
+- I recommend adhering to the password policy when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
+  
+**Editing Password Settings:**
 - ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main) when changing the password (`passwd username`). Ensure that you edit `/etc/security/pwquality.conf` instead for these changes to take effect.
 - ⚠️ After editing the password aging settings in `/etc/login.defs`, make sure to manually apply corresponding policies to existing users using commands like `chage -m 2 -M 30 -W 7 root` or `chage -m 2 -M 30 -W 7 username`. Check password aging settings via `sudo chage -l username`.
+
+**Testing Password Policy Setup:**
 - Test the correctness of the password policy setup by creating a user and providing a 'bad' password, e.g. by simply pressing 'Enter' when asked for one (`sudo adduser test_user`). Although this user will be created, attempting to log in or switch to the user should prompt for a password that was not set up, rendering the user effectively unusable. Make sure to use the '-r' flag to remove the user along with the user's home directory and its contents: `sudo userdel -r test_user`.
 
 ## Port Setup
 - The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server from your machine. To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
-- In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding    
-![Screenshot from 2024-01-16 14-26-30](https://github.com/alx-sch/42_born2beroot/assets/134595144/f6bd5077-3bf4-4254-93a6-351ed9d686f5)
+- In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding.
+
+   ![VirtualBox Port Forwarding](https://github.com/alx-sch/42_born2beroot/assets/134595144/f6bd5077-3bf4-4254-93a6-351ed9d686f5)
 
 ## Editing Sudoers
-- Use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`), to access and edit the sudoers file. Visudo checks for correct syntax, helping you avoid errors that could lock you out of sudo access.
+- When modifying the sudoers file, use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`). Visudo not only grants you access to edit the sudoers file but also performs syntax checking, reducing the risk of errors that could potentially lock you out of sudo access.
 
 ## Monitoring Script
 - As with everything you find online: Take it with a grain of salt and make sure to understand and test before implementing it into your own project. I've encountered a few monitoring scripts that were not 100% correct (e.g., counting the header line of a table showing TCP connections, therefore always being "1" too much).
@@ -94,18 +99,18 @@ cmds=$(journalctl _COMM=sudo | grep COMMAND | wc -l)
 
 # Multiline message
 message="
-        #Architecture: $arc
-        #CPU physical: $cpu_p
-        #vCPU: $cpu_v
-        #Memory Usage: $ram_use/${ram_total}MB ($ram_perc%)
-        #Disk Usage: $disk_use/${disk_total}GB ($disk_perc%)
-        #CPU load: $cpu_l
-        #Last boot: $lb
-        #LVM use: $lvmu
-        #Connections TCP: $tcpc ESTABLISHED
-        #User log: $ulog
-        #Network: IP $ip ($mac)
-        #Sudo: $cmds commands"
+     #Architecture: $arc
+     #CPU physical: $cpu_p
+     #vCPU: $cpu_v
+     #Memory Usage: $ram_use/${ram_total}MB ($ram_perc%)
+     #Disk Usage: $disk_use/${disk_total}GB ($disk_perc%)
+     #CPU load: $cpu_l
+     #Last boot: $lb
+     #LVM use: $lvmu
+     #Connections TCP: $tcpc ESTABLISHED
+     #User log: $ulog
+     #Network: IP $ip ($mac)
+     #Sudo: $cmds commands"
 
 # Send the message to all logged-in users
 echo "$message" | wall`
@@ -171,10 +176,10 @@ echo "$message" | wall`
 - **`ip=$(hostname -I)`**
     - Purpose: Retrieves the system's IP address.
     - Explanation: Uses **`hostname -I`** to obtain the system's IP address.
-
+      
 - **`mac=$(ip link show | grep "ether" | awk '{print $2}')`**
     - Purpose: Retrieves the MAC address of the network interface.
-    - Explanation: Uses **`ip link show`** to list network interfaces, filters lines containing "ether" (MAC address), and extracts the MAC address.
+    - Explanation: Uses **`ip link show`** to list network interfaces, filters lines containing "ether" (MAC address), and extracts the MAC address. The MAC address (Media Access Control address) is a unique identifier assigned to network interfaces for communication on a network.
  
 - **`cmds=$(journalctl _COMM=sudo | grep COMMAND | wc -l)`**
     - Purpose: Counts the number of sudo commands executed.
@@ -188,7 +193,7 @@ echo "$message" | wall`
   ```bash
   */10 * * * * sh /usr/local/bin/monitor_script.sh
   ```
-- ⚠️ While this setup does execute the script every 10 minutes, it does so every "full 10 minutes" on the clock (e.g., 12:00, 12:10, 12:20, ...). The project's subject, however, specifies that the monitoring information is to be shown at server startup and then every 10 minutes. This means that if the server is started at 12:34:56 (HH:MM:SS), the monitoring info is expected to be displayed right away and then at 12:44:56, 12:54:56, 01:04:56, and so on.
+- ⚠️ While this setup does execute the script every 10 minutes, it does so every full 10 minutes on the clock (e.g., 12:00, 12:10, 12:20, ...). The project's subject, however, specifies that the monitoring information is to be shown at server startup and then every 10 minutes. This means that if the server is started at 12:34:56 (HH:MM:SS), the monitoring info is expected to be displayed right away and then at 12:44:56, 12:54:56, 01:04:56, and so on.
 - To align with the project requirements, consider the crontab setting below (`sudo crontab -u root -e`): 
   ```bash
   @reboot sleep 30 && /usr/local/bin/monitor_script.sh
@@ -213,7 +218,7 @@ echo "$message" | wall`
       ```
     - **`boot_time=$(last -FR | grep reboot | head -n 1 | awk '{print $7}')`**
         - Purpose: Retrieves the timestamp of the last system reboot.
-        - Explanation: Uses the 'last' command to show the system's reboot history. Filters lines containing "reboot", takes the first line using **`head -n 1`**, and extracts the seventh column (timestamp) using awk.
+        - Uses the 'last' command with options -FR to display the full date and seconds for the reboot history. It then filters lines containing 'reboot', takes the first line using `head -n 1`, and extracts the seventh column (timestamp) using awk.
      
    - **`single_digit_minute=$(echo "$boot_time" | awk '{printf substr($1,5,1)}')`**
         - Purpose: Extracts the single-digit minute from the boot timestamp.
@@ -231,13 +236,13 @@ echo "$message" | wall`
 ## Saving the Virtual Machine State
 - Taking a snapshot in VirtualBox allows you to capture the current state of your virtual machine, making it easy to revert back to that state later. This can be especially useful before making significant changes, ensuring a stable point to return to. Reverting back to a snapshot after an evaluation ensures that the hash value of your virtual machine still aligns with the one you uploaded. Follow these steps to take a snapshot:
     - Make sure that your virtual machine is powered off before taking a snapshot.
-    - Open the VirtualBox Manager and select your virtual machine. Navigate to the 'Snapshots' tab by clicking the 'list symbol' next to the virtual machine.
+    - Open the VirtualBox Manager and select your virtual machine. Navigate to the 'Snapshots' tab by clicking the 'list icon' (symbolized as a stack of lines) next to the virtual machine.
     - Click on the 'Take' button to create a snapshot. You'll notice the 'Current State' is 'changed' once the virtual machine starts.
     - To revert to the snapshot state, select the desired snapshot and choose 'Restore.'
      ![Screenshot from 2024-01-16 13-23-44](https://github.com/alx-sch/42_born2beroot/assets/134595144/b13203d4-846b-4aa9-8b4c-fc94f0919f5e)
 
 ## Acknowledgements
-
 - I would like to thank the authors mentioned in [Guides Used](#guides-used) for their valuable documentation.
 - The project badge used is retrieved from [this repo](https://github.com/ayogun/42-project-badges) by Ali Ogun.
+- A big thank you to the Debian and VirtualBox communities for their outstanding contributions and dedication to open-source ethos.
      
