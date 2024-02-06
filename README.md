@@ -42,7 +42,7 @@ I used the following guides to set up my virtual machine, acknowledging certain 
 - Test the correctness of the password policy setup by creating a user and providing a 'bad' password, e.g. by simply pressing 'Enter' when asked for one (`sudo adduser test_user`). Although this user will be created, attempting to log in or switch to the user should prompt for a password that was not set up, rendering the user effectively unusable. Make sure to use the '-r' flag to remove the user along with the user's home directory and its contents: `sudo userdel -r test_user`.
 
 ## Port Setup
-- The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server from your machine. To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
+- The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server ('guest') from your machine ('host'). To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
 - In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding.
 
    ![VirtualBox Port Forwarding](https://github.com/alx-sch/42_born2beroot/assets/134595144/f6bd5077-3bf4-4254-93a6-351ed9d686f5)
@@ -229,8 +229,7 @@ echo "$message" | wall`
         - Explanation: Similar to the previous line, it uses awk to extract a substring starting from the 7th character with a length of 2 (the seconds).
           
 ## WordPress Website Setup
-
-- [This](https://github.com/ucefooo/born2beroot) guide explains the setup neatly.
+- [This](https://github.com/ucefooo/born2beroot?tab=readme-ov-file#2-linux-lighttpd-mariadb-php-llmp-stack) guide explains the setup neatly in step 1–5. 
 - Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that the use of port 8080 is a personal choice, as this port is often employed for development and testing purposes, and port 80 was not available on my network. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
 
 ## Saving the Virtual Machine State
