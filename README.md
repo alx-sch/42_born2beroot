@@ -227,7 +227,7 @@ echo "$message" | wall`
     - **`seconds=$(echo "$boot_time" | awk '{printf substr($1,7,2)}')`**
         - Purpose: Extracts the seconds from the boot timestamp.
         - Explanation: Similar to the previous line, it uses awk to extract a substring starting from the 7th character with a length of 2 (the seconds).
-- Ensure that the cron jobs can execute the scripts by setting the appropriate permissions. You can check the permissions with the command `ls -l`. If adjustments are needed, use the following commands:
+- Ensure that the cron jobs can execute the scripts by setting the appropriate permissions. You can check the permissions with `ls -l`. If adjustments are needed, use the following commands:
      ```bash
     chmod +x /usr/local/bin/monitor_script.sh
     chmod +x /usr/local/bin/sleep_script.sh
