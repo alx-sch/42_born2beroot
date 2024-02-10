@@ -227,7 +227,13 @@ echo "$message" | wall`
     - **`seconds=$(echo "$boot_time" | awk '{printf substr($1,7,2)}')`**
         - Purpose: Extracts the seconds from the boot timestamp.
         - Explanation: Similar to the previous line, it uses awk to extract a substring starting from the 7th character with a length of 2 (the seconds).
-          
+- Ensure that the cron jobs can execute the scripts by setting the appropriate permissions. You can check the permissions with the command `ls -l`. If adjustments are needed, use the following commands:
+     ```bash
+    chmod +x /usr/local/bin/monitor_script.sh
+    chmod +x /usr/local/bin/sleep_script.sh
+     ```
+
+
 ## WordPress Website Setup
 - [This](https://github.com/ucefooo/born2beroot?tab=readme-ov-file#2-linux-lighttpd-mariadb-php-llmp-stack) guide explains the setup neatly in step 1–5. 
 - Access your website through your browser at http://localhost:8080, where you'll be prompted to sign up for WordPress. To edit your website, visit http://localhost:8080/wp-admin, using the credentials you've just set up. Please note that the use of port 8080 is a personal choice, as this port is often employed for development and testing purposes, and port 80 was not available on my network. By default, Lighttpd is configured to listen on port 80, the standard port for HTTP (check [Port Setup](#port-setup) to see how this is managed).
