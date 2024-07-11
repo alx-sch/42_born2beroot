@@ -1,7 +1,7 @@
 # 42_born2beroot
 
 <p align="center">
-    <img src="https://github.com/alx-sch/42_born2beroot/assets/134595144/5b265781-5233-4e48-97df-7bead21d3054" alt="born2beroot_badge.png" />
+    <img src="https://raw.githubusercontent.com/alx-sch/42_born2beroot/main/.assets/born2beroote.png" alt="born2beroot_badge.png" />
 </p>
 
 This project serves as a practical exercise in system administration: A secure virtual machine is configured, involving user authentication, firewall rules, and system monitoring, with a focus on Linux system administration and network security.
@@ -28,11 +28,11 @@ I used the following guides to set up my virtual machine, acknowledging certain 
 - To install Debian with the specified partitions as mentioned in the bonus section, I followed [this video guide](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=349s) by [Youssef Oussama](https://github.com/ucefooo).   
     - ⚠️ Ensure that you install the server on 42's shared storage space "sgoinfre." Be mindful not to exceed the disk space limits specified by your school's policy (the partition sizes presented in the project's subject are examples; a total size of ~8 GB should work just fine).
     - ⚠️ Note how the volume "var--log" (as listed with `lstblk`) is named "var-log" during setup (see 7:50 timestamp in the [video guide](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=349s)). Naming it "var--log" would result in a volume called "var----log".
-![Screenshot from 2023-12-15 15-11-14 (1)](https://github.com/alx-sch/42_born2beroot/assets/134595144/514f57a8-92c4-40c3-8077-2aac9e5db8d9)
+![Screenshot from 2023-12-15 15-11-14 (1)](https://raw.githubusercontent.com/alx-sch/42_born2beroot/main/.assets/sgoinfre_full.png)
 
 ## Password Policy
  **During OS Installation:**
-- I recommend adhering to the password policy when setting up passwords for both the root and main user. Additionally, consider following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
+- I recommend adhering to the password policy when setting up passwords for both the root and main user. Also, please keep following the same policy for accessing the encrypted partition; even if it's not explicitly specified in the subject, it is still good practice. By establishing strong passwords from the beginning, you can avoid the need to change them later and mitigate the risk of forgetting about it, as there is no prompt for rule changes.
   
 **Editing Password Settings:**
 - ⚠️ Some guides only change settings in `/etc/pam.d/common-password`. However, this doesn't affect password requirements for existing users (root, main) when changing the password (`passwd username`). Ensure that you edit `/etc/security/pwquality.conf` instead for these changes to take effect.
@@ -42,10 +42,10 @@ I used the following guides to set up my virtual machine, acknowledging certain 
 - Test the correctness of the password policy setup by creating a user and providing a 'bad' password, e.g. by simply pressing 'Enter' when asked for one (`sudo adduser test_user`). Although this user will be created, attempting to log in or switch to the user should prompt for a password that was not set up, rendering the user effectively unusable. Make sure to use the '-r' flag to remove the user along with the user's home directory and its contents: `sudo userdel -r test_user`.
 
 ## Port Setup
-- The project's specifications require the SSH service to exclusively run on port 4242. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server ('guest') from your machine ('host'). To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
+- The project's specifications require the SSH service to run on port 4242 exclusively. However, there's a chance that this port is already in use on your network. In such cases, `ssh username@localhost -p 4242` may not work for logging into your server ('guest') from your machine ('host'). To address this, you can use port forwarding, allowing you to log in using a different port. For example, with the setup below, `ssh username@localhost -p 4243` does the trick.
 - In VirtualBox, open the settings of your virtual machine/server -> Network -> Advanced (Adapter 1) -> Port Forwarding.
 
-   ![VirtualBox Port Forwarding](https://github.com/alx-sch/42_born2beroot/assets/134595144/f6bd5077-3bf4-4254-93a6-351ed9d686f5)
+   ![VirtualBox Port Forwarding](https://raw.githubusercontent.com/alx-sch/42_born2beroot/main/.assets/port_setup.png)
 
 ## Editing Sudoers
 - When modifying the sudoers file, use `sudo visudo` instead of calling an editor (e.g., `sudo nano /etc/sudoers`). Visudo not only grants you access to edit the sudoers file but also performs syntax checking, reducing the risk of errors that could potentially lock you out of sudo access.
@@ -244,7 +244,7 @@ echo "$message" | wall`
     - Open the VirtualBox Manager and select your virtual machine. Navigate to the 'Snapshots' tab by clicking the 'list icon' (symbolized as a stack of lines) next to the virtual machine.
     - Click on the 'Take' button to create a snapshot. You'll notice the 'Current State' is 'changed' once the virtual machine starts.
     - To revert to the snapshot state, select the desired snapshot and choose 'Restore.'
-     ![Screenshot from 2024-01-16 13-23-44](https://github.com/alx-sch/42_born2beroot/assets/134595144/b13203d4-846b-4aa9-8b4c-fc94f0919f5e)
+     ![Screenshot from 2024-01-16 13-23-44](https://raw.githubusercontent.com/alx-sch/42_born2beroot/main/.assets/save_state.png)
 
 ## Acknowledgements
 - I would like to thank the authors mentioned in [Guides Used](#guides-used) for their valuable documentation.
