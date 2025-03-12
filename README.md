@@ -248,6 +248,6 @@ echo "$message" | wall`
 
 ## Acknowledgements
 - I would like to thank the authors mentioned in [Guides Used](#guides-used) for their valuable documentation.
-- The project badge used is retrieved from [this repo](https://github.com/ayogun/42-project-badges) by Ali Ogun.
+- The project badge used is from [this repository](https://github.com/ayogun/42-project-badges) by Ali Ogun.
 - A big thank you to the Debian and VirtualBox communities for their outstanding contributions and dedication to open-source ethos.
      
