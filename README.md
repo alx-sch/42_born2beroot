@@ -1,4 +1,4 @@
-# 42_born2beroot
+# born2beroot
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/alx-sch/42_born2beroot/main/.assets/born2beroote.png" alt="born2beroot_badge.png" />
